@@ -74,9 +74,19 @@ const writeHolderInfo = async (holder) => {
   return true;
 }
 
-const holderNumberChecker = (holderList = []) => holderList.length === config.holders;
+const holderNumberChecker = (holderList = []) => {
+  if (holderList.length !== config.holders) {
+    throw new Error(`Holder Number || Expected : ${config.holders}, Actual : ${holderList.length}`);
+  }
+  return true;
+}
 
-const totalSupplyChecker = () => totalSupply === config.totalSupply;
+const totalSupplyChecker = () => {
+  if (totalSupply !== config.totalSupply) {
+    throw new Error(`Total Supply || Expected : ${config.totalSupply}, Actual : ${totalSupply}`);
+  }
+  return true;
+};
 
 init()
   .then(() => getHolderList())
@@ -87,8 +97,8 @@ init()
     });
     await Promise.all(promises);
 
-    if (!holderNumberChecker(holderList)) throw new Error('Unmatched holder number');
-    if (!totalSupplyChecker()) throw new Error('Unmatched total supply');
+    holderNumberChecker(holderList);
+    totalSupplyChecker();
     console.log("=== FINISHED ===");
   })
   .catch(console.log);
