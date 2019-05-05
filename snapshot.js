@@ -74,9 +74,9 @@ const writeHolderInfo = async (holder) => {
   return true;
 }
 
-const holderNumberChecker = (holderList = []) => {
-  if (holderList.length !== config.holders) {
-    throw new Error(`Holder Number || Expected : ${config.holders}, Actual : ${holderList.length}`);
+const holderNumberChecker = (totalHolders) => {
+  if (totalHolders !== config.holders) {
+    throw new Error(`Holder Number || Expected : ${config.holders}, Actual : ${totalHolders}`);
   }
   return true;
 }
@@ -97,8 +97,8 @@ init()
     });
     await Promise.all(promises);
 
-    holderNumberChecker(holderList);
     totalSupplyChecker();
+    holderNumberChecker(totalHolders);
     console.log("=== FINISHED ===");
   })
   .catch(console.log);
