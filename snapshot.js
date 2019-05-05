@@ -82,7 +82,7 @@ const holderNumberChecker = (totalHolders) => {
 }
 
 const totalSupplyChecker = () => {
-  if (totalSupply !== config.totalSupply) {
+  if (+totalSupply !== +config.totalSupply) {
     throw new Error(`Total Supply || Expected : ${config.totalSupply}, Actual : ${totalSupply}`);
   }
   return true;
